@@ -15,8 +15,8 @@ module.exports = gql`
     guideName: String!
   }
   type Query {
-    boat(ID: ID!): Boat!
-    guide(ID: ID!): Guide!
+    boat(ID: ID!): Boat
+    guide(ID: ID!): Guide
     getBoats: [Boat]
     getGuides: [Guide]
   }

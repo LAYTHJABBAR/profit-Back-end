@@ -3,17 +3,17 @@ const Guide = require("../models/guides.model");
 
 module.exports = {
   Query: {
-    async boat(_, { id }) {
+    async boat(_, {ID}) {
       try {
-        const boat = await Boat.findById(id);
+        const boat = await Boat.findById(ID);
         return boat;
       } catch (err) {
         throw new Error(err);
       }
     },
-    async guide(_, { id }) {
+    async guide(_, { ID }) {
       try {
-        const guide = await Guide.findById(id);
+        const guide = await Guide.findById(ID);
         return guide;
       } catch (err) {
         throw new Error(err);
@@ -41,9 +41,8 @@ module.exports = {
       const newBoat = new Boat({
         guideName,
         boatName,
-        swimlaneID
+        swimlaneID,
       });
-console.log(newBoat)
       const boat = await newBoat.save();
       return {
         ...boat._doc,
