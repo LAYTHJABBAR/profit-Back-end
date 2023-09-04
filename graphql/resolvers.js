@@ -60,18 +60,18 @@ module.exports = {
         id: guide._id,
       };
     },
-    async deleteBoat(_, { id }) {
+    async deleteBoat(_, { ID }) {
       try {
-        const wasDeleted = (await Boat.deleteOne(id)).deletedCount;
-        return wasDeleted;
+        const wasDeleted = (await Boat.deleteOne(ID)).deletedCount;
+        return wasDeleted > 0;
       } catch (err) {
         throw new Error(err);
       }
     },
-    async deleteGuide(_, { id }) {
+    async deleteGuide(_, { ID }) {
       try {
         const wasDeleted = (await Guide.deleteOne({ _id: ID })).deletedCount;
-        return wasDeleted;
+        return wasDeleted > 0;
       } catch (err) {
         throw new Error(err);
       }
