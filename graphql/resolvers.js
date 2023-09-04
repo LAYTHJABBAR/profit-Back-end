@@ -76,17 +76,15 @@ module.exports = {
         throw new Error(err);
       }
     },
-    async editBoat(_, { ID, args }) {
-      try {
-        const boat = await Boat.findByIdAndUpdate(ID, args);
-        if (boat) {
-          return true;
-        } else {
-          return false;
+    async editBoat(_, { ID, swimlaneID }) {
+        try {
+            const result = await Boat.updateOne({ _id: ID }, { swimlaneID });
+            const wasUpdated = result.modifiedCount > 0;
+            return wasUpdated;
+        } catch (err) {
+            throw new Error(err);
         }
-      } catch (err) {
-        throw new Error(err);
-      }
+     
     },
   },
 };
