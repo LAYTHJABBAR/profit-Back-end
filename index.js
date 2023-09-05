@@ -1,8 +1,8 @@
 const { ApolloServer } = require("apollo-server");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
-const MONGODB =
-  "mongodb+srv://layth:layth@boat.g1zwxgp.mongodb.net/?retryWrites=true&w=majority";
+const MONGODB = process.env.DATABASE_URL;
 
 // Apollo Server
 // typeDefs: GraphQL Type Definitions
