@@ -43,11 +43,9 @@ module.exports = {
         boatName,
         swimlaneID,
       });
-      const boat = await newBoat.save();
-      return {
-        ...boat._doc,
-        id: boat._id,
-      };
+      await newBoat.save();
+      const boats = await Boat.find();
+      return boats;
     },
     async addGuide(_, { guideName }) {
       const newGuide = new Guide({

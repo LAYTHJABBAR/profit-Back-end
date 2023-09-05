@@ -21,7 +21,7 @@ module.exports = gql`
     getGuides: [Guide]
   }
   type Mutation {
-    addBoat(guideName: String!, boatName: String!, swimlaneID: Int!): Boat!
+    addBoat(guideName: String!, boatName: String!, swimlaneID: Int!): [Boat]!
     addGuide(guideName: String!): Guide!
     deleteBoat(ID: ID!): Boolean!
     deleteGuide(ID: ID!): Boolean!
