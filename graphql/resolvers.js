@@ -1,87 +1,36 @@
 const Boat = require("../models/boats.model");
 const Guide = require("../models/guides.model");
+const Dashboard = require("../models/dashboard.model");
 
 module.exports = {
   Query: {
-    async boat(_, { ID }) {
+    async getPagDashboards(_, { page = 10, filterBy = null, sortBy = null }) {
+      const perPage = 10;
       try {
-        const boat = await Boat.findById(ID);
-        return boat;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-    async guide(_, { ID }) {
-      try {
-        const guide = await Guide.findById(ID);
-        return guide;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-    async getBoats() {
-      try {
-        const boats = await Boat.find();
-        return boats;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-    async getGuides() {
-      try {
-        const guides = await Guide.find();
-        return guides;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-  },
-  Mutation: {
-    async addBoat(_, { guideName, boatName, swimlaneID }) {
-      const newBoat = new Boat({
-        guideName,
-        boatName,
-        swimlaneID,
-      });
-      await newBoat.save();
-      const boats = await Boat.find();
-      return boats;
-    },
-    async addGuide(_, { guideName }) {
-      const newGuide = new Guide({
-        guideName,
-      });
+        function compareByCompletedRevenue(a, b) {
+          const revenueA = parseFloat(a.completedRevenue.replace("$", ""));
+          const revenueB = parseFloat(b.completedRevenue.replace("$", ""));
 
-      const guide = await newGuide.save();
-      return {
-        ...guide._doc,
-        id: guide._id,
-      };
-    },
-    async deleteBoat(_, ID) {
-      try {
-        const wasDeleted = (await Boat.deleteOne({ _id: ID.ID })).deletedCount;
-        return wasDeleted > 0;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-    async deleteGuide(_, { ID }) {
-      try {
-        const wasDeleted = (await Guide.deleteOne({ _id: ID })).deletedCount;
-        return wasDeleted > 0;
-      } catch (err) {
-        throw new Error(err);
-      }
-    },
-    async editBoat(_, { ID, swimlaneID }) {
-      try {
-        const result = await Boat.updateOne({ _id: ID }, { swimlaneID });
-        const wasUpdated = result.modifiedCount > 0;
-        return wasUpdated;
+          if (revenueA < revenueB) {
+            return 1;
+          }
+          if (revenueA > revenueB) {
+            return -1;
+          }
+          return 0;
+        }
+        paginatedItems = await Dashboard.find({ City: filterBy })
+          .sort({ [sortBy]: -1 })
+          .skip((page - 1) * perPage)
+          .limit(perPage)
+          .lean();
+        return (paginatedItems = paginatedItems.sort(
+          compareByCompletedRevenue
+        ));
       } catch (err) {
         throw new Error(err);
       }
     },
   },
+  Mutation: {},
 };
