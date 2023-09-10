@@ -1,4 +1,3 @@
-
 const Dashboard = require("../models/dashboard.model");
 
 module.exports = {
@@ -18,11 +17,20 @@ module.exports = {
           }
           return 0;
         }
-        paginatedItems = await Dashboard.find({ City: filterBy })
-          .sort({ completedRevenue: -1 })
-          .skip((page - 1) * perPage)
-          .limit(perPage)
-          .lean();
+
+        if (filterBy) {
+          paginatedItems = await Dashboard.find({ City: filterBy })
+            .sort({ completedRevenue: -1 })
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .lean();
+        } else {
+          paginatedItems = await Dashboard.find()
+            .sort({ completedRevenue: -1 })
+            .skip((page - 1) * perPage)
+            .limit(perPage)
+            .lean();
+        }
         return (paginatedItems = paginatedItems.sort(
           compareByCompletedRevenue
         ));
