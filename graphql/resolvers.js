@@ -19,7 +19,7 @@ module.exports = {
           return 0;
         }
         paginatedItems = await Dashboard.find({ City: filterBy })
-          .sort({ [sortBy]: -1 })
+          .sort({ completedRevenue: -1 })
           .skip((page - 1) * perPage)
           .limit(perPage)
           .lean();
