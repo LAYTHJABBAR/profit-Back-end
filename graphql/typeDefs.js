@@ -14,5 +14,6 @@ module.exports = gql`
   }
   type Query {
     getPagDashboards(page: Int, filterBy: String, sortBy: String): [Dashboard!]!
+    getAllDashboards(filterBy: String): [Dashboard!]!
   }
 `;
