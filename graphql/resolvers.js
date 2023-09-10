@@ -1,5 +1,4 @@
-const Boat = require("../models/boats.model");
-const Guide = require("../models/guides.model");
+
 const Dashboard = require("../models/dashboard.model");
 
 module.exports = {
@@ -32,5 +31,4 @@ module.exports = {
       }
     },
   },
-  Mutation: {},
 };

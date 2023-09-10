@@ -13,11 +13,6 @@ module.exports = gql`
     completedRevenue: String!
   }
   type Query {
- 
     getPagDashboards(page: Int, filterBy: String, sortBy: String): [Dashboard!]!
-  }
-
-  type Mutation {
-
   }
 `;
