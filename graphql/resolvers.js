@@ -2,7 +2,7 @@ const Dashboard = require("../models/dashboard.model");
 
 module.exports = {
   Query: {
-    async getPagDashboards(_, { page = 10, filterBy = null, sortBy = null }) {
+    async getPagDashboards(_, { page = 10, filterBy = null,filterValue = null, sortBy = null }) {
       const perPage = 10;
       try {
         function compareByCompletedRevenue(a, b) {
@@ -18,11 +18,10 @@ module.exports = {
           return 0;
         }
 
-        if (filterBy) {
-          paginatedItems = await Dashboard.find({ City: filterBy })
+        if (filterBy && filterValue) {
+          paginatedItems = await Dashboard.find({ [filterBy]: filterValue })
             .sort({ completedRevenue: -1 })
             .skip((page - 1) * perPage)
-            .limit(perPage)
             .lean();
         } else {
           paginatedItems = await Dashboard.find()

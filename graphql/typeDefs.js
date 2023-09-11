@@ -13,7 +13,7 @@ module.exports = gql`
     completedRevenue: String!
   }
   type Query {
-    getPagDashboards(page: Int, filterBy: String, sortBy: String): [Dashboard!]!
+    getPagDashboards(page: Int, filterBy: String,filterValue: String, sortBy: String): [Dashboard!]!
     getAllDashboards(filterBy: String): [Dashboard!]!
   }
 `;
