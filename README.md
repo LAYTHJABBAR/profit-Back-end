@@ -17,7 +17,7 @@ To get started with this Apollo GraphQL Server, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/LAYTHJABBAR/profit-Back-end.git mynewbackend
 
 2. Navigate to the project directory:
 
